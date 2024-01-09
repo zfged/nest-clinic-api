@@ -5,11 +5,12 @@ import { Center } from "./center.model";
 import { Model } from "mongoose";
 import { CreateCenterDto } from "./dto/CreateCenterDto";
 import { UpdateCenterDto } from "./dto/UpdateCenterDto";
+import { User } from "src/user/user.model";
 
 
 @Injectable()
 export class CenterService {
-    constructor(@InjectModel('centers') private centerModel: Model<Center>) { }
+    constructor(@InjectModel('centers') private centerModel: Model<Center>,@InjectModel('users') private userModel: Model<User>) { }
 
     findAll(keyword?: string, skip = 0, limit = 10): Observable<Center[]> {
         if (keyword) {
