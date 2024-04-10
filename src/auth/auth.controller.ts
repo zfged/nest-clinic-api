@@ -3,6 +3,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
+
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/CreateUserDto';
 
@@ -21,7 +22,6 @@ export class AuthController {
     async createUser(
         @Body() createUserDto: CreateUserDto
     ): Promise<User> {
-        console.log(createUserDto.password)
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(createUserDto.password, saltOrRounds);
         const result = await this.userService.createUser(
@@ -30,5 +30,5 @@ export class AuthController {
             createUserDto.roles
         );
         return result;
-    }
+    } 
 }

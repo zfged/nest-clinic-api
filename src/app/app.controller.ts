@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { HasRoles } from '../auth/has-roles.decorator';
-import { Role } from '../model/role.enum';
+import { Role } from '../user/role.enum';
 import { RolesGuard } from '../auth/roles.guard';
 
 @Controller()

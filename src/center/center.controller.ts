@@ -1,11 +1,10 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, Query, UsePipes, ValidationPipe } from "@nestjs/common";
-import { Observable, catchError, first, map, of, take, toArray } from "rxjs";
+import { Observable, map, take, toArray } from "rxjs";
 import { Center } from "./center.model";
 import { CenterService } from "./center.service";
 import { CreateCenterDto } from "./dto/CreateCenterDto";
 import { UpdateCenterDto } from "./dto/UpdateCenterDto";
-import { CenterUserRelation } from "src/model/CenterUserRelation";
-import { User } from "src/user/user.model";
+
 
 
 
@@ -13,27 +12,6 @@ import { User } from "src/user/user.model";
 export class CenterController {
   constructor(private centerService: CenterService) {}
 
-
-
-  @Get('test')
-  test(): Observable<CenterUserRelation> {
-    let firstUser: User;
-    let firstCenter: Center;
-  
-    return from(User.findOne().exec()).pipe(
-      tap((user) => (firstUser = user)),
-      mergeMap(() => from(Center.findOne().exec())),
-      tap((center) => (firstCenter = center)),
-      mergeMap(() =>
-        from(
-          this.centerUserRelationModel.create({
-            center: firstCenter._id,
-            user: firstUser._id,
-          }),
-        ),
-      ),
-    );
-  }
 
   @Get('')
   getAllCenters(@Query('q') keyword?: string): Observable<(Center | Center[])[]>{
